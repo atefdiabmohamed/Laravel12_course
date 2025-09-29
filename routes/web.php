@@ -8,10 +8,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StundetController;
 use App\Http\Controllers\Training_coursesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomController;
 use App\Models\Flight;
 use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
-dump("3");
+
 
 
 
@@ -84,7 +85,7 @@ Route::post('DOAddStudentToTrainingCourses/{id}',[Training_coursesController::cl
 Route::get('DeleteStudentFromTrainingCourses/{id}',[Training_coursesController::class,'DeleteStudentFromTrainingCourses'])->name('training_courses.DeleteStudentFromTrainingCourses');
 
 Route::resource('country', CountriesController::class);
-
+Route::get('welcome',[WelcomController::class,'index']);
 Route::fallback(function(){
     return " not found";
 });
