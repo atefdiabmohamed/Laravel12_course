@@ -12,10 +12,8 @@ class MyServicesProvider extends ServiceProvider
     public function register(): void
     {
         // تسجيل الخدمات بيتم هنا
-     $this->app->singleton('atefhi',function(){
-    return new \App\Services\HelperService;
-
-        
+     $this->app->singleton(HelperService::class,function(){
+    return new HelperService();        
      });
 
 
