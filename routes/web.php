@@ -14,7 +14,9 @@ use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
 
 
-
+Route::get('dashboard',function(){
+    return "welcome Atef From Wep route file";
+});
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -86,6 +88,7 @@ Route::get('DeleteStudentFromTrainingCourses/{id}',[Training_coursesController::
 
 Route::resource('country', CountriesController::class);
 Route::get('welcome',[WelcomController::class,'index']);
+Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
 });
