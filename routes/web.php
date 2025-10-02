@@ -13,6 +13,8 @@ use App\Models\Flight;
 use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
 
+Route::redirect('here1', 'https://www.google.com/?zx=1759435648077&no_sw_cr=1');
+Route::permanentRedirect('here2', 'https://www.google.com/?zx=1759435648077&no_sw_cr=1');
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
