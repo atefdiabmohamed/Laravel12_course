@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
-});
+})->middleware(['throttle:lmit5']);
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
