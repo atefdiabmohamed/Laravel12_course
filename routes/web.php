@@ -95,7 +95,9 @@ Route::permanentRedirect('here2', 'https://www.google.com/?zx=1759435648077&no_s
 //Accessing the Current Route
 Route::get('getmyrouteinfo/{username}',[WelcomController::class,'getmyrouteinfo'])->name('get_my_route_info');
 
-
+Route::get('testcacheaffect1',function(){
+    return "cahce ";
+});
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
