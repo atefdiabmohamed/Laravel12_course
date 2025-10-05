@@ -12,7 +12,7 @@ use App\Http\Controllers\WelcomController;
 use App\Models\Flight;
 use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 
 
 Route::get('dashboard',function(){
@@ -97,6 +97,62 @@ Route::get('getmyrouteinfo/{username}',[WelcomController::class,'getmyrouteinfo'
 
 Route::get('testcacheaffect1',function(){
     return "cahce ";
+});
+
+//Interacting With The Request
+
+Route::get('/testRquest',function (Request $request){
+ //return $request->all();
+ /*return [
+'path'=>$request->path(),
+'url'=>$request->url(),
+'host'=>$request->host(),
+'method'=>$request->method(),
+'ip'=>$request->ip(),
+
+
+
+
+ ]; */
+
+//return  $request->header('User-Agent');
+
+//return $request->header('X-App-Name','AtefSoft');
+
+//return $contentTypes = $request->getAcceptableContentTypes();;
+
+/*if ($request->hasHeader('X-Header-Name')) {
+
+    return "Found";
+
+
+}else{
+    return "Not Found";   
+}*/
+
+/*if($request->header('AppKey')=="atef"){
+return response()->json(['data'=>'Success operation']);
+}else{
+return response()->json(['data'=>'Faild Authoiztion operation']);
+}
+*/
+
+});
+
+//send header
+Route::get('/sendMyHeaders',function(Request $request){
+return response('Hello Atef Soft ')
+->header('AppName','Pos')
+->header('Version','3');
+
+});
+
+Route::get('/SendHeaderToMe',function(Request $request){
+$request->headers->set('XAppNAme','AtefSoft From More info Header');
+$headerValue=$request->header('XAppNAme');
+return " القيم الاضافية في الهيدر هي ".$headerValue;
+
+
 });
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);

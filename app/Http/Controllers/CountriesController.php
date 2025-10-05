@@ -31,7 +31,9 @@ class CountriesController extends Controller
     public function store(CreateCountry $request)
     {
 
-           $Country = new countries();
+
+
+       $Country = new countries();
         $Country->name = $request->name;
         $Country->save();
         return redirect()->route('country.index');

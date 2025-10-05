@@ -20,6 +20,44 @@ class CoursesController extends Controller
     }
     public function store(CreateCourseValidationRequest $request)
     {
+
+            //Accessing the Request Example
+    //   return $name = $request->input('name');
+  
+/*if ($request->has('name')) {
+
+  dd('yes');
+
+}
+ */
+/*
+if ($request->has(['name', 'active'])) {
+
+  dd('yes');
+
+}
+*/
+/*
+if ($request->hasAny(['name', 'email'])) {
+
+  dd('yes');
+
+}
+*/
+/*
+if ($request->filled('name')) {
+
+  dd('yes');
+
+} 
+  */
+if ($request->isNotFilled('email')) {
+
+  dd('yes');
+
+}
+
+
         $counter = Courses::where('name', '=', $request->name)->count();
         if ($counter > 0) {
             return redirect()->back()->with(['error' => 'عفوا الاسم مسجل من قبل'])->withInput();
