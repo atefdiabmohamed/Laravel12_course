@@ -155,6 +155,33 @@ return " القيم الاضافية في الهيدر هي ".$headerValue;
 
 });
 
+//Content Negotiation
+Route::get('ContentNegotiation',function(Request $request){
+
+//$contentTypes = $request->getAcceptableContentTypes();
+/*if ($request->accepts(['text/html', 'application/json'])) {
+return " Accept html , json";
+
+}else{
+
+return " not Accept html , json";
+} 
+*/
+/*$preferred = $request->prefers([ 'application/json','text/html']);
+return " النوع المفضل لدي".$preferred;
+*/
+
+if ($request->expectsJson()) {
+return response()->json(['key'=>'value']);
+ 
+}else{
+    return " حرجع شيء اخر";
+
+}
+
+
+});
+
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
