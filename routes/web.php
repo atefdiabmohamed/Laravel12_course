@@ -13,7 +13,7 @@ use App\Models\Flight;
 use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Psr\Http\Message\ServerRequestInterface;
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
@@ -181,6 +181,24 @@ return response()->json(['key'=>'value']);
 
 
 });
+
+Route::get('psr7',function(ServerRequestInterface $request){
+$method=$request->getMethod();
+$uri=$request->getUri();
+$headers=$request->getHeaders();
+
+return response()->json([
+'method'=>$method,
+'uri'=>$uri,
+'headers'=>$headers
+
+
+]);
+
+});
+
+
+
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
