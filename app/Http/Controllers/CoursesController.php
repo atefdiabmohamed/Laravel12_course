@@ -51,11 +51,28 @@ if ($request->filled('name')) {
 
 } 
   */
-if ($request->isNotFilled('email')) {
+/*if ($request->isNotFilled('email')) {
 
   dd('yes');
 
-}
+} */
+
+  /*$originalData=$request->all();
+  //دمج بيانات اضافية لو مش موجوده او استبدالها اذا موجوده
+    $request->merge(['votes' => 0]);
+    $request->merge(['name' => 'atef']);
+    //اضافة عنصر جديد بشرط انه مش موجود في الطلب 
+    $request->mergeIfMissing(['userid'=>'1']);
+
+    return response()->json([
+     'orignalData'=>$originalData,
+     'AfterMerg'=>$request->all()
+
+    ]);
+
+    dd('done');
+*/
+  
 
 
         $counter = Courses::where('name', '=', $request->name)->count();
