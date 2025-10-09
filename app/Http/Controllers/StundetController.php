@@ -53,6 +53,53 @@ class StundetController extends Controller
         $student->address  = $request->address;
         $student->notes  = $request->notes;
         $student->active = $request->active;
+ /* هنا حنشرح شوية امثله علي دوال الملفات */
+  //$request->photo;
+ // $request->file('photo');
+
+/*if ($request->hasFile('photo')) {
+dd("بالفعل تم رفع ملف");
+ 
+} 
+*/
+/*
+$file=$request->file('photo');
+if ($request->hasFile('photo')) {
+if ($request->file('photo')->isValid()) {
+return response()->json(
+[
+'orignal_name'=>$file->getClientOriginalName(),
+'extension'=>$file->getClientOriginalExtension(),
+'size'=>$file->getSize(),
+'path'=>$file->getRealPath()
+
+]
+
+
+);
+
+}else{
+return response()->json(
+[ 
+'error'=>'فشل رفع الملف ربما انقطاع الانترنت '
+
+]);
+
+
+}
+
+
+    }
+
+*/
+
+/*$path = $request->photo->store('images','public');
+//$path = $request->photo->storeAs('images','testimage');
+dd($path);
+*/
+
+
+
         //upload image
         if ($request->has('photo')) {
             $image = $request->photo;
