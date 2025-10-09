@@ -273,11 +273,39 @@ return response('Hello World cookie')->cookie($cookie);
 
 });
 
-Route::get('/remove_cookie', function () {
+Route::get('remove_cookie', function () {
 
 return response('Hello World cookie')->withoutCookie('atefsoft');
 
 });
+
+Route::get('redirect_dashboard', function () {
+
+    return redirect('/dashboard');
+
+});
+
+Route::get('return_redirect_to_route', function () {
+
+   return redirect()->route('courses.index');
+});
+
+
+Route::get('return_redirect_add_course', function () {
+
+return redirect()->action([CoursesController::class, 'create']);
+});
+
+Route::get('return_redirect_edit_course', function () {
+
+return redirect()->action([CoursesController::class, 'edit'], ['id' => 1]);
+});
+
+Route::get('return_External_Domains', function () {
+
+  return redirect()->away('https://www.google.com');
+});
+
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
