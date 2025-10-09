@@ -14,6 +14,7 @@ use App\Models\Training_courses;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
+use App\Models\User;
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
@@ -197,7 +198,59 @@ return response()->json([
 
 });
 
+//Response Section
 
+Route::get('/simple_response_string', function () {
+
+    return 'Hello World';
+
+});
+Route::get('simple_response_array/', function () {
+
+    return [1, 2, 3];
+
+});
+
+Route::get('/response_with_header', function () {
+
+    return response('Hello World', 200)
+        ->header('Content-Type', 'text/plain');
+
+});
+
+Route::get('/user/{user}', function (User $user) {
+
+    return $user;
+
+});
+
+Route::get('/return_multi_headers', function () {
+
+return response("Multi Headers")
+
+    ->header('Content-Type', "json")
+
+    ->header('X-Header-One', 'Header Value')
+
+    ->header('X-Header-Two', 'Header Value');
+
+});
+
+Route::get('/return_multi_headers_array', function () {
+
+return response("array of headers")
+
+    ->withHeaders([
+
+        'Content-Type' => "HTml",
+
+        'X-Header-One' => 'Header Value',
+
+        'X-Header-Two' => 'Header Value',
+
+    ]);
+
+});
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);

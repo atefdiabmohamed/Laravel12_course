@@ -32,6 +32,7 @@ $middleware->web(append:
 
 
     })
+    
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
