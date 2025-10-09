@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
@@ -252,6 +253,31 @@ return response("array of headers")
 
 });
 
+
+Route::get('/return_cookie', function () {
+
+return response('Hello World cookie')->cookie(
+
+    'atefsoft', 'programming', 30,'/',null,true,true
+
+);
+
+});
+
+Cookie::queue('color', 'red', 60);
+Cookie::expire('atefsoft');
+
+Route::get('/readycookie', function () {
+$cookie = cookie('size', '41', 60);
+return response('Hello World cookie')->cookie($cookie);
+
+});
+
+Route::get('/remove_cookie', function () {
+
+return response('Hello World cookie')->withoutCookie('atefsoft');
+
+});
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
