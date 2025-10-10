@@ -199,7 +199,7 @@ return response()->json([
 
 });
 
-//Response Section
+// Response Section
 
 Route::get('/simple_response_string', function () {
 
@@ -342,6 +342,25 @@ Route::get('show_file',function(){
     return response()->file(public_path('atef.pdf'));
 });
 
+Route::get('/stream', function () {
+
+    return response()->stream(function (): void {
+
+        foreach (['developer', 'admin','accountant','editor','doctor'] as $string) {
+
+            echo $string."<br>";
+
+            ob_flush();
+
+            flush();
+
+            sleep(2); // Simulate delay between chunks...
+
+        }
+
+    }, 200, ['X-Accel-Buffering' => 'no']);
+
+});
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
