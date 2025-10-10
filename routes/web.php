@@ -361,6 +361,10 @@ Route::get('/stream', function () {
     }, 200, ['X-Accel-Buffering' => 'no']);
 
 });
+Route::get('test_macro',function(){
+return response()->caps('foo');
+
+});
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
