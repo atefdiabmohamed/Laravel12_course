@@ -306,6 +306,41 @@ Route::get('return_External_Domains', function () {
   return redirect()->away('https://www.google.com');
 });
 
+Route::get('return_view',function(){
+return response()->view('hello_view',['name'=>'atefsoft'],200)->header('Content-Type','text/html');
+
+});
+Route::get('return_json_data',function(){
+return response()->json([
+
+    'name' => 'Abigail',
+
+    'state' => 'CA',
+
+]);
+
+});
+
+Route::get('jsonp',function(Request $request){
+ return response()->json([
+
+    'name' => 'atefsoft',
+
+    'state' => '200',
+
+])->withCallback($request->input('callback'));
+
+
+});
+
+Route::get('force_download_file',function(){
+
+    return response()->download(public_path('atef.pdf'),'force download 2',['Content-Type'=>'application/pdf']);
+});
+Route::get('show_file',function(){
+
+    return response()->file(public_path('atef.pdf'));
+});
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
