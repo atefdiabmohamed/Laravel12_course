@@ -68,6 +68,9 @@ Route::post('store_courses',[CoursesController::class,'store'])->name('courses.s
 Route::get('edit_courses/{id}',[CoursesController::class,'edit'])->name('courses.edit');
 Route::post('update_courses/{id}',[CoursesController::class,'update'])->name('courses.update');
 Route::get('destroy_courses/{id}',[CoursesController::class,'destroy'])->name('courses.destroy');
+Route::get('testurl',[CoursesController::class,'testurl'])->name('training_courses.testurl');
+
+
 
 //start Students
 Route::get('student',[StundetController::class,'index'])->name('student.index');

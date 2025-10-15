@@ -10,8 +10,13 @@ class CoursesController extends Controller
 {
     public function index()
     {
+    
+       
+
         $data = Courses::all();
         return view('courses.index', ['data' => $data]);
+
+
     }
 
     public function create()
@@ -118,6 +123,15 @@ if ($request->filled('name')) {
         return redirect()->route('courses.index')->with(['success' => 'تم الحذف بنجاح']);
 
 
+    }
+    public function testurl(){
+   $id=1;
+   //echo url("/posts/{$id}");
+  // echo url()->query('/post',['search'=>'laravel']);
+  //echo url()->query('/post?sort=latest',['search'=>'laravel']);
+//echo url()->query('/post?sort=latest',['sort'=>'oldest']);
+ $url = url()->query('/posts', ['columns' => ['title', 'body']]);
+echo urldecode($url);
     }
 
 }
