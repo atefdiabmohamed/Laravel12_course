@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCourseValidationRequest;
 use Illuminate\Http\Request;
 use App\Models\Courses;
+use Illuminate\Support\Facades\URL;
 
 class CoursesController extends Controller
 {
@@ -130,8 +131,20 @@ if ($request->filled('name')) {
   // echo url()->query('/post',['search'=>'laravel']);
   //echo url()->query('/post?sort=latest',['search'=>'laravel']);
 //echo url()->query('/post?sort=latest',['sort'=>'oldest']);
- $url = url()->query('/posts', ['columns' => ['title', 'body']]);
-echo urldecode($url);
+ //$url = url()->query('/posts', ['columns' => ['title', 'body']]);
+//echo urldecode($url);
+
+
+//echo url()->current();
+//echo  url()->full();
+//echo url()->previous();
+//echo url()->previousPath();
+ //echo URL::current();
+
+ return URL::signedRoute('unsubscribe', ['user' => 1]);
+
     }
+
+
 
 }

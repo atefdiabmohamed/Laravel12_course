@@ -368,6 +368,38 @@ Route::get('test_macro',function(){
 return response()->caps('foo');
 
 });
+
+ 
+
+Route::get('/unsubscribe/{user}', function (Request $request) {
+
+    if (! $request->hasValidSignature()) {
+
+        abort(401);
+
+    }
+    return "تم الغاء الاشتراك بنجاح ";
+
+})->name('unsubscribe');
+
+
+
+Route::get('send_email_ver',function(){
+
+$url=URL::temporarySignedRoute(
+    'unsubscribe', now()->addMinutes(1), ['user' => 1]
+);
+
+return " رابط الالغاء الخاص بكم  : <a href='{$url}'> {$url} </a> " ;
+
+
+
+
+});
+
+
+
+
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
