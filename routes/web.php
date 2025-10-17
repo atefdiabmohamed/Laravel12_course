@@ -68,6 +68,9 @@ Route::post('store_courses',[CoursesController::class,'store'])->name('courses.s
 Route::get('edit_courses/{id}',[CoursesController::class,'edit'])->name('courses.edit');
 Route::post('update_courses/{id}',[CoursesController::class,'update'])->name('courses.update');
 Route::get('destroy_courses/{id}',[CoursesController::class,'destroy'])->name('courses.destroy');
+Route::get('testurl',[CoursesController::class,'testurl'])->name('training_courses.testurl');
+
+
 
 //start Students
 Route::get('student',[StundetController::class,'index'])->name('student.index');
@@ -365,6 +368,55 @@ Route::get('test_macro',function(){
 return response()->caps('foo');
 
 });
+
+ 
+
+Route::get('/unsubscribe/{user}', function (Request $request) {
+
+    if (! $request->hasValidSignature()) {
+
+        abort(401);
+
+    }
+    return "تم الغاء الاشتراك بنجاح ";
+
+})->name('unsubscribe');
+
+
+
+Route::get('send_email_ver',function(){
+
+$url=URL::temporarySignedRoute(
+    'unsubscribe', now()->addMinutes(1), ['user' => 1]
+);
+
+return " رابط الالغاء الخاص بكم  : <a href='{$url}'> {$url} </a> " ;
+
+
+
+
+});
+
+
+Route::get('set_session', function (Request $request) {
+    $request->session()->put('username','Atef Diab Mohamed');
+    $request->session()->put('user_id',1);
+    $request->session()->put('role',"admin");
+    return " لقد تم تخزين الجلسات في الداتابيس ";
+
+});
+
+Route::get('get_session', function (Request $request) {
+    $username=$request->session()->get('username','غير معرف');
+    $id=$request->session()->get('user_id','غير معرف');
+    $role=$request->session()->get('role','غير معرف');
+    return " اسم المستخدم".$username." بصلاحية ".$role." برقم كود ".$id;
+
+
+});
+
+
+
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
     return " not found";
