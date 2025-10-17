@@ -398,6 +398,23 @@ return " رابط الالغاء الخاص بكم  : <a href='{$url}'> {$url} <
 });
 
 
+Route::get('set_session', function (Request $request) {
+    $request->session()->put('username','Atef Diab Mohamed');
+    $request->session()->put('user_id',1);
+    $request->session()->put('role',"admin");
+    return " لقد تم تخزين الجلسات في الداتابيس ";
+
+});
+
+Route::get('get_session', function (Request $request) {
+    $username=$request->session()->get('username','غير معرف');
+    $id=$request->session()->get('user_id','غير معرف');
+    $role=$request->session()->get('role','غير معرف');
+    return " اسم المستخدم".$username." بصلاحية ".$role." برقم كود ".$id;
+
+
+});
+
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
