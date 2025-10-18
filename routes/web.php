@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+
 
 Route::get('dashboard',function(){
     return "welcome Atef From Wep route file";
@@ -397,7 +399,7 @@ return " رابط الالغاء الخاص بكم  : <a href='{$url}'> {$url} <
 
 });
 
-
+//Request
 Route::get('set_session', function (Request $request) {
     $request->session()->put('username','Atef Diab Mohamed');
     $request->session()->put('user_id',1);
@@ -405,7 +407,7 @@ Route::get('set_session', function (Request $request) {
     return " لقد تم تخزين الجلسات في الداتابيس ";
 
 });
-
+//Request
 Route::get('get_session', function (Request $request) {
     $username=$request->session()->get('username','غير معرف');
     $id=$request->session()->get('user_id','غير معرف');
@@ -414,6 +416,42 @@ Route::get('get_session', function (Request $request) {
 
 
 });
+
+//Glopal Helper session
+
+Route::get('set_session_by_helper', function () {
+   session(['the_name'=>'atef','theid'=>5]);
+    return " لقد تم تخزين الجلسات في الداتابيس ";
+});
+
+Route::get('get_session_by_helper', function () {
+ $username=session('the_name','لايوجد');
+  $theid=session('theid','لايوجد');
+
+     return " اسم المستخدم".$username."برقم كود ".$theid;
+});
+
+//Facade Session
+Route::get('set_session_by_Facade', function () {
+   Session::put('user','atef');
+   Session::put('type','admin');
+    return " لقد تم تخزين الجلسات في الداتابيس ";
+});
+
+
+Route::get('get_session_by_Facade', function () {
+ $user=Session::get('user','لايوجد');
+  $type=Session::get('type','لايوجد');
+
+     return " اسم المستخدم".$user." بنوع ".$type;
+});
+
+
+
+
+
+
+
 
 
 
