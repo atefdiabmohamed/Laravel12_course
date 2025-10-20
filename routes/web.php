@@ -446,13 +446,67 @@ Route::get('get_session_by_Facade', function () {
      return " اسم المستخدم".$user." بنوع ".$type;
 });
 
+//flash data - flash session
+
+Route::get('/flash_data',function(Request $request){
+$request->session()->flash('status','  هذه رسالة مؤقته للطلب الحالي فقط !');
+return view('flash_session_example');
+});
 
 
+// reflash data - reflash session
+
+Route::get('/reflash_data_first',function(Request $request){
+$request->session()->flash('status','  هذه رسالة مؤقته لمدة طلبين   فقط !');
+return redirect('/reflash_data_second');
 
 
+});
+
+Route::get('/reflash_data_second',function(Request $request){
+$request->session()->reflash();
+
+return redirect('/reflash_data_third');
+
+});
+
+Route::get('/reflash_data_third',function(Request $request){
+
+return view('flash_session_example');
+
+});
+
+//keep reflsh
+
+Route::get('/keep_data_first',function(Request $request){
+$request->session()->flash('username',' atef');
+$request->session()->flash('role',' admin');
+$request->session()->flash('email',' admin@gmail.com');
+
+return redirect('/keep_data_second');
 
 
+});
 
+Route::get('/keep_data_second',function(Request $request){
+//الاحتفاظ ببعض الداتا
+$request->session()->keep(['username', 'email']);
+
+return redirect('/keep_data_third');
+
+});
+
+Route::get('/keep_data_third',function(Request $request){
+
+return view('flash_session_example');
+
+});
+
+//session now
+Route::get('/now_session_data',function(Request $request){
+$request->session()->now('status',' تمت العملية فورا الان !');
+return view('flash_session_example');
+});
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
