@@ -541,6 +541,28 @@ return " معرف الجلسة الحالي ".$sessionId;
 });
 
 
+//Session Cache
+Route::get('cahce_put',function(Request $request){
+//$discount = $request->session()->cache()->get('discount');
+/*$request->session()->cache()->put(
+
+    'discount', 10, now()->addMinutes(5)
+
+);
+*/
+    Cache::put(
+    'discount', 10, now()->addMinutes(5));
+    return "تم تخزين البيانات في الكاش للجلسة الحالية";
+
+});
+
+Route::get('cahce_get',function(Request $request){
+
+   $discount=Cache::get('discount');
+    return "القيمة هي ".$discount;
+
+});
+
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
