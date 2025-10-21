@@ -17,6 +17,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 
 Route::get('dashboard',function(){
@@ -543,25 +544,37 @@ return " معرف الجلسة الحالي ".$sessionId;
 
 //Session Cache
 Route::get('cahce_put',function(Request $request){
-//$discount = $request->session()->cache()->get('discount');
-/*$request->session()->cache()->put(
+//$request->session()->cache()->put('discount', 10, now()->addMinutes(5));
+$sessionId=$request->session()->getId();
 
-    'discount', 10, now()->addMinutes(5)
-
-);
-*/
-    Cache::put(
-    'discount', 10, now()->addMinutes(5));
-    return "تم تخزين البيانات في الكاش للجلسة الحالية";
+Cache::put("session_{$sessionId}_discount",10, now()->addMinutes(5));
 
 });
 
 Route::get('cahce_get',function(Request $request){
+$sessionId=$request->session()->getId();
 
-   $discount=Cache::get('discount');
+   $discount = Cache::get("session_{$sessionId}_discount");
+   Cache::forget("session_{$sessionId}_discount");
     return "القيمة هي ".$discount;
 
 });
+
+//Session Blocking
+
+Route::get('/profile', function () {
+//معالجة البينات
+sleep(5);
+return " تم تحديث البيانات";
+
+})->block($lockSeconds = 10, $waitSeconds = 10);
+
+ Route::get('/profile_show', function () {
+//معالجة البينات
+return " تم عرض البيانات";
+
+})->block($lockSeconds = 10, $waitSeconds = 10);
+
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
