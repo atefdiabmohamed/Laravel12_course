@@ -508,6 +508,39 @@ $request->session()->now('status',' تمت العملية فورا الان !');
 return view('flash_session_example');
 });
 
+Route::get('forget_session', function (Request $request) {
+ 
+
+    // Forget a single key...
+ $request->session()->forget('name');
+// Forget multiple keys...
+
+$request->session()->forget(['name', 'role']);
+$request->session()->flush();
+    return " لقد تم حذف البيانات المحدده من  الجلسات   ";
+
+});
+Route::get('regenerate_session', function (Request $request) {
+ 
+ $request->session()->regenerate();
+
+  return " لقد تم اعاده تجديد رقم الجلسة او معرف الجلسة الحالية  ";
+
+});
+Route::get('invalidate_session', function (Request $request) {
+ 
+$request->session()->invalidate(); 
+  return " لقد تم اعاده تجديد رقم الجلسة وحذف كل البيانات التي بالجلسة  ";
+
+});
+
+Route::get('return_session_id',function(Request $request){
+$sessionId=$request->session()->getId();
+return " معرف الجلسة الحالي ".$sessionId;
+
+});
+
+
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
 Route::fallback(function(){
