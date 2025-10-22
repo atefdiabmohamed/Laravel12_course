@@ -575,6 +575,13 @@ return " تم عرض البيانات";
 
 })->block($lockSeconds = 10, $waitSeconds = 10);
 
+Route::get('set_cache_database_example',function(){
+
+ Cache::put('discount',20,now()->addMinutes(5));
+ $discount=Cache::get('discount');
+ return "the value is".$discount;
+
+});
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
