@@ -575,6 +575,56 @@ return " تم عرض البيانات";
 
 })->block($lockSeconds = 10, $waitSeconds = 10);
 
+Route::get('set_cache_database_example',function(){
+
+ Cache::put('discount',20,now()->addMinutes(5));
+  Cache::put('role',200,now()->addMinutes(5));
+   Cache::put('type',30,now()->addMinutes(5));
+
+ $discount=Cache::get('discount');
+ return "the value is".$discount;
+
+});
+Route::get('forget_cache',function(){
+//Cache::forget('discount');
+//Cache::put('discount',10,5);
+//Cache::put('discount',10,0);
+//Cache::put('discount',10,-5);
+Cache::flush();
+return " تم حذف العنصر من الكاش ";
+
+});
+
+Route::get('set_cache_Memoization_example',function(){
+//استدعاء قيمة العنصر من الكاش في اول مرة  مع الاخذ في الحسبان تخزينه في الذاكرة للطلب القادم لنفس العنصر
+Cache::memo()->put('name', 'Taylor'); //هنا بيروح يكتب في الكاش الحقيقي 
+Cache::memo()->get('name'); //قراه من الكاش الفعلي 
+Cache::memo()->get('name'); //قراه من  الذاكرة المؤقته  Memorized
+Cache::memo()->put('name', 'Tim');  
+Cache::memo()->get('name'); //قراه من الكاش الفعلي 
+Cache::memo()->get('name'); //قراه من  الذاكرة المؤقته  Memorized
+
+
+});
+
+
+Route::get('cache_Memoization_example',function(){
+//استدعاء قيمة العنصر من الكاش في اول مرة  مع الاخذ في الحسبان تخزينه في الذاكرة للطلب القادم لنفس العنصر
+return $dicount=Cache::memo()->get('dicount');
+
+
+
+});
+
+
+Route::get('test_deleted_cache',function(){
+ $discount=Cache::get('discount');
+ return "the value is".$discount;
+
+
+});
+
+
 
 
 Route::get('myfacade',[WelcomController::class,'myfacade']);
