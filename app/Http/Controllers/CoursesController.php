@@ -6,7 +6,7 @@ use App\Http\Requests\CreateCourseValidationRequest;
 use Illuminate\Http\Request;
 use App\Models\Courses;
 use Illuminate\Support\Facades\URL;
-
+use App\Events\CourseAddEvent;
 class CoursesController extends Controller
 {
     public function index()
@@ -89,6 +89,8 @@ if ($request->filled('name')) {
         $course->name = $request->name;
         $course->active = $request->active;
         $course->save();
+        //نعمل اطلاق الحدث event
+        event(new CourseAddEvent($request->name));
 
         return redirect()->route('courses.index')->with(['success' => 'تم اضافة البيانات بنجاح']);
     }

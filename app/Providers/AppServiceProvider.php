@@ -7,7 +7,11 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Response;
+use App\Events\CancelOrderCart;
+use App\Listeners\SendEmailOnCancelOorder;
 
+
+use Illuminate\Support\Facades\Event;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -37,6 +41,14 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+
+            Event::listen(
+
+        CancelOrderCart::class,
+
+        SendEmailOnCancelOorder::class,
+
+    );
 
     }
 }
