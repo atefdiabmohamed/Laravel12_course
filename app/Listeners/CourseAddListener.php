@@ -3,11 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\CourseAddEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
-
-class CourseAddListener
+use Illuminate\Contracts\Queue\ShouldQueue;
+class CourseAddListener  implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -30,4 +29,6 @@ class CourseAddListener
 
 
     }
+
+        public $delay = 10;
 }
