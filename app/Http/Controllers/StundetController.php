@@ -10,7 +10,8 @@ use App\Notifications\CreateStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\GeneralTraits;
-
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 
@@ -53,16 +54,16 @@ class StundetController extends Controller
         $student->address  = $request->address;
         $student->notes  = $request->notes;
         $student->active = $request->active;
- /* هنا حنشرح شوية امثله علي دوال الملفات */
-  //$request->photo;
- // $request->file('photo');
+        /* هنا حنشرح شوية امثله علي دوال الملفات */
+        //$request->photo;
+        // $request->file('photo');
 
-/*if ($request->hasFile('photo')) {
+        /*if ($request->hasFile('photo')) {
 dd("بالفعل تم رفع ملف");
  
 } 
 */
-/*
+        /*
 $file=$request->file('photo');
 if ($request->hasFile('photo')) {
 if ($request->file('photo')->isValid()) {
@@ -93,7 +94,7 @@ return response()->json(
 
 */
 
-/*$path = $request->photo->store('images','public');
+        /*$path = $request->photo->store('images','public');
 //$path = $request->photo->storeAs('images','testimage');
 dd($path);
 */
@@ -108,6 +109,7 @@ dd($path);
             $image->move("uploads", $filenname);
             $student->image = $filenname;
         }
+
         $student->save();
 
         //ارسال اشعار لكل المستخدمين بالنظام

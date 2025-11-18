@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class WelcomeMail extends Mailable
 {
@@ -16,9 +17,11 @@ class WelcomeMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+
+    public $data;
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -38,6 +41,9 @@ class WelcomeMail extends Mailable
     {
         return new Content(
             view: 'emails.welcome',
+            with: [
+                'info' => $this->data
+            ]
         );
     }
 
@@ -48,6 +54,14 @@ class WelcomeMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+
+            Attachment::fromPath(public_path('asd.pdf'))
+
+                ->as('atefsoft.pdf')
+
+                ->withMime('application/pdf'),
+
+        ];
     }
 }

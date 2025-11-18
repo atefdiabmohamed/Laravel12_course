@@ -93,7 +93,15 @@ if ($request->filled('name')) {
     //نعمل اطلاق الحدث event
     event(new CourseAddEvent($request->name));
     //send email
-    // Mail::to('user@gmail.com')->send(new WelcomeMail());
+
+    $data = [
+      'name' => 'atef',
+      'email' => 'atefsoft@gmail.com',
+      'level' => 'advanced',
+      'courses' => ['laravel', 'php', 'mysql']
+
+    ];
+    Mail::to('asdfox50@gmail.com')->send(new WelcomeMail($data));
     return redirect()->route('courses.index')->with(['success' => 'تم اضافة البيانات بنجاح']);
   }
 
