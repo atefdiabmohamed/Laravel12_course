@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Mail\Mailables\Headers;
 
 class WelcomeMail extends Mailable
 {
@@ -23,6 +24,26 @@ class WelcomeMail extends Mailable
     {
         $this->data = $data;
     }
+
+    public function headers(): Headers
+
+    {
+
+        return new Headers(
+
+            messageId: 'atefsoft-id@example.com',
+
+            references: ['atefsoftprevious-message@example.com'],
+
+            text: [
+
+                'X-Custom-Header' => 'hi',
+
+            ],
+
+        );
+    }
+
 
     /**
      * Get the message envelope.
