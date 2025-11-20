@@ -11,6 +11,16 @@
                 <h3 class="card-title " style="text-align: center; float: none">بيانات الطلاب
 <a href="{{route('ar')}}">ar</a>
 <a href="{{route('en')}}">en</a>
+<!-- call component -->
+<!--  <x-alert> </x-alert> -->
+<x-alert/>
+<x-info-lable type="success" message="Call success Components "  />
+<x-info-lable type="error" message=" Call error Components "  />
+<x-infolabelslot type="info" >
+Call  Components with Slot
+</x-infolabelslot>
+
+
 
      <a class="btn btn-sm btn-info " href="{{route('student.create')}}"> {{__('mycustom.add_new') }} </a>
 
