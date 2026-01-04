@@ -13,6 +13,8 @@ use App\Traits\GeneralTraits;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use  Illuminate\Support\Facades\DB;
+
 
 
 class StundetController extends Controller
@@ -42,28 +44,32 @@ class StundetController extends Controller
 
     public function store(CreateStudentRequest $request)
     {
-        $counter = Students::where('name', '=', $request->name)->count();
-        if ($counter > 0) {
-            return redirect()->back()->with(['error' => 'عفوا الاسم مسجل من قبل'])->withInput();
-        }
-        $student = new Students();
-        $student->name = $request->name;
-        $student->country_id  = $request->country_id;
-        $student->phones  = $request->phones;
-        $student->nationalID  = $request->nationalID;
-        $student->address  = $request->address;
-        $student->notes  = $request->notes;
-        $student->active = $request->active;
-        /* هنا حنشرح شوية امثله علي دوال الملفات */
-        //$request->photo;
-        // $request->file('photo');
+        try {
+            //كود ممكن يتنفذ
+            //هنا بنقول ابدا معيا معاملة جديدة
+            DB::beginTransaction();
+            $counter = Students::where('name', '=', $request->name)->count();
+            if ($counter > 0) {
+                return redirect()->back()->with(['error' => 'عفوا الاسم مسجل من قبل'])->withInput();
+            }
+            $student = new Students();
+            $student->name = $request->name;
+            $student->country_id  = $request->country_id;
+            $student->phones  = $request->phones;
+            $student->nationalID  = $request->nationalID;
+            $student->address  = $request->address;
+            $student->notes  = $request->notes;
+            $student->active = $request->active;
+            /* هنا حنشرح شوية امثله علي دوال الملفات */
+            //$request->photo;
+            // $request->file('photo');
 
-        /*if ($request->hasFile('photo')) {
+            /*if ($request->hasFile('photo')) {
 dd("بالفعل تم رفع ملف");
- 
-} 
+
+}
 */
-        /*
+            /*
 $file=$request->file('photo');
 if ($request->hasFile('photo')) {
 if ($request->file('photo')->isValid()) {
@@ -81,7 +87,7 @@ return response()->json(
 
 }else{
 return response()->json(
-[ 
+[
 'error'=>'فشل رفع الملف ربما انقطاع الانترنت '
 
 ]);
@@ -94,33 +100,42 @@ return response()->json(
 
 */
 
-        /*$path = $request->photo->store('images','public');
+            /*$path = $request->photo->store('images','public');
 //$path = $request->photo->storeAs('images','testimage');
 dd($path);
 */
 
 
 
-        //upload image
-        if ($request->has('photo')) {
-            $image = $request->photo;
-            $extension = strtolower($image->extension());
-            $filenname = time() . rand(1, 1000) . "." . $extension;
-            $image->move("uploads", $filenname);
-            $student->image = $filenname;
+            //upload image
+            if ($request->has('photo')) {
+                $image = $request->photo;
+                $extension = strtolower($image->extension());
+                $filenname = time() . rand(1, 1000) . "." . $extension;
+                $image->move("uploads", $filenname);
+                $student->image = $filenname;
+            }
+
+            $student->save();
+
+            //ارسال اشعار لكل المستخدمين بالنظام
+            $users = User::select("id")->get();
+            $content = "تم اضافة طالب جديد باسم " . $request->name;
+            Notification::send($users, new CreateStudent($request->name, $content));
+            //هنا حنجرب مثلا ايرور مصطنع
+            //  echo $x;
+            //هنا اقول ابدا احفظ المعاملة طالما لايوجد اي مشكلة
+            DB::commit();
+
+
+            return redirect()->route('student.index')->with(['success' => 'تم اضافة البيانات بنجاح']);
+        } catch (\Exception $ex) {
+            //كود يتنفذ لما يحصل  خطأ او ايرور
+            //تراجع عن كل العملية
+            DB::rollBack();
+
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ما وهو' . $ex->getMessage()])->withInput();
         }
-
-        $student->save();
-
-        //ارسال اشعار لكل المستخدمين بالنظام
-        $users = User::select("id")->get();
-        $content = "تم اضافة طالب جديد باسم " . $request->name;
-        Notification::send($users, new CreateStudent($request->name, $content));
-
-
-
-
-        return redirect()->route('student.index')->with(['success' => 'تم اضافة البيانات بنجاح']);
     }
 
 

@@ -24,49 +24,51 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>  الدولة التابع لها الطالب</label>
+                    <label> الدولة التابع لها الطالب</label>
                     <select name="country_id" id="country_id" class="form-control ">
                         <option value="">اختر الدولة</option>
-                       @if(!@empty($countries))
-                         @foreach ( $countries as $info )
-                          <option value="{{$info->id}}"> {{ $info->name }}</option>
-                         @endforeach
-                       @endif
+                        @if (!@empty($countries))
+                            @foreach ($countries as $info)
+                                <option @if (old('country_id') == $info->id) selected @endif value="{{ $info->id }}">
+                                    {{ $info->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     @error('country_id')
                         <span style="color: red;">{{ $message }}</span>
                     @enderror
 
                 </div>
-                 <div class="form-group">
-                    <label for="phones">الرقم القومي للهوية  </label>
-                    <input  type="text" name="nationalID" class="form-control" id="address" value="{{ old('nationalID') }}">
-                      @error('nationalID')
+                <div class="form-group">
+                    <label for="phones">الرقم القومي للهوية </label>
+                    <input type="text" name="nationalID" class="form-control" id="address"
+                        value="{{ old('nationalID') }}">
+                    @error('nationalID')
                         <span style="color: red;">{{ $message }}</span>
                     @enderror
 
                 </div>
 
-     <div class="form-group">
-                    <label for="phones">الهاتف  </label>
-                    <input  type="text" name="phones" class="form-control" id="address" value="{{ old('phones') }}">
-                      @error('phones')
+                <div class="form-group">
+                    <label for="phones">الهاتف </label>
+                    <input type="text" name="phones" class="form-control" id="address" value="{{ old('phones') }}">
+                    @error('phones')
                         <span style="color: red;">{{ $message }}</span>
                     @enderror
 
                 </div>
 
-     <div class="form-group">
-                    <label for="address">العنوان  </label>
-                    <input  type="text" name="address" class="form-control" id="address" value="{{ old('address') }}">
+                <div class="form-group">
+                    <label for="address">العنوان </label>
+                    <input type="text" name="address" class="form-control" id="address" value="{{ old('address') }}">
 
                 </div>
 
 
 
-                    <div class="form-group">
-                    <label for="notes">ملاحظات  </label>
-                    <input  type="notes" name="notes" class="form-control" id="notes" value="{{ old('notes') }}">
+                <div class="form-group">
+                    <label for="notes">ملاحظات </label>
+                    <input type="notes" name="notes" class="form-control" id="notes" value="{{ old('notes') }}">
 
                 </div>
                 <div class="form-group">
@@ -82,8 +84,8 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="photo">الصورة ان وجدت  </label>
-                    <input  type="file" name="photo" class="form-control" id="photo">
+                    <label for="photo">الصورة ان وجدت </label>
+                    <input type="file" name="photo" class="form-control" id="photo">
 
                 </div>
 
