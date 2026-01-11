@@ -13,9 +13,11 @@ Route::get('/students_from_api', function () {
     ]);
 });
 // ================================
+//نتدرج بالشرح والامثلة وصولا الي الافضل
 // API Manual (للتوضيح والفهم فقط)
 // هذا الأسلوب تعليمي وغير احترافي
 // لاحقًا سنستخدم Route::apiResource() الاحترافي
+//سنشرح لاحقا  best practice laravel API
 // ================================
 Route::get('courses', [CourseController::class, 'index']);
 Route::post('courses_store', [CourseController::class, 'store']);
@@ -26,4 +28,5 @@ Route::get('courses_show/{id}', [CourseController::class, 'show']);
 
 
 
-//ثانيا التلقائي
+//ثانيا التلقائي Route::apiResource() الاحترافي
+//سنشرح هنا  best practice laravel API
