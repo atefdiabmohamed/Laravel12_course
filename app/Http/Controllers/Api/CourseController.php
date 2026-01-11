@@ -60,4 +60,46 @@ class CourseController extends Controller
 
         ], 200);
     }
+
+
+    public function update($id, CreateCourseValidationRequest $request)
+    {
+        $dataCourse = Courses::find($id);
+        if (empty($dataCourse)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'عفوا غير قادر للوصول للبيانات المطلوبة   '
+
+            ], 404);
+        }
+        $dataCourse['name'] = $request->name;
+        $dataCourse['active'] = $request->active;
+        $dataCourse->save();
+        return response()->json([
+            'status' => true,
+            'message' => 'تم تحديث البيانات',
+            'data' => $dataCourse
+
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $dataCourse = Courses::find($id);
+
+        if (empty($dataCourse)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'عفوا غير قادر للوصول للبيانات المطلوبة   '
+
+            ], 404);
+        }
+
+        $dataCourse->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'تم حذف البيانات'
+
+        ], 200);
+    }
 }
