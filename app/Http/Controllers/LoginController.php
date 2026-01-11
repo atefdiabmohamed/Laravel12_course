@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-
-    function getlogin(){
+    //login
+    function getlogin()
+    {
         return view('login');
     }
 }
