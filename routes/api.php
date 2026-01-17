@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\StundetController;
+use App\Http\Controllers\Api\StudentController;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +29,4 @@ Route::get('courses_destroy/{id}', [CourseController::class, 'destroy']);
 //ثانيا التلقائي Route::apiResource() الاحترافي
 //سنشرح هنا  best practice laravel API
 
-
-Route::apiResource('students', StundetController::class);
+Route::apiResource('students', StudentController::class);
