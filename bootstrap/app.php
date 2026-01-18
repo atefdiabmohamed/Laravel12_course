@@ -12,7 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__ . '/../routes/web.php',
             __DIR__ . '/../routes/admin.php',
         ],
-        api: __DIR__ . '/../routes/api.php',
+
+        api: [
+            __DIR__ . '/../routes/api_v1.php',
+            __DIR__ . '/../routes/api_v2.php',
+
+
+        ],
+
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
