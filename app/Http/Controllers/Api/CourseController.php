@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Courses;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourseValidationRequest;
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -14,9 +15,16 @@ class CourseController extends Controller
     {
 
         $data = Courses::paginate(8);
+        /*
+          return response()->json([
+            'status' => true,
+            'data' =>  $data
+        ], 200);
+*/
+
         return response()->json([
             'status' => true,
-            'data' => $data
+            'data' =>  CourseResource::collection($data)
         ], 200);
     }
 
@@ -56,7 +64,7 @@ class CourseController extends Controller
         }
         return response()->json([
             'status' => true,
-            'data' => $data
+            'data' => new CourseResource($data)
 
         ], 200);
     }
