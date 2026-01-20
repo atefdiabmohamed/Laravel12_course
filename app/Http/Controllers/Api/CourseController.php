@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\ApiResponse;
 use App\Models\Courses;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourseValidationRequest;
@@ -15,17 +16,24 @@ class CourseController extends Controller
     {
 
         $data = Courses::paginate(8);
-        /*
+        /* اول مثال
           return response()->json([
             'status' => true,
             'data' =>  $data
         ], 200);
 */
 
+        /* ثاني مثال
+
         return response()->json([
             'status' => true,
             'data' =>  CourseResource::collection($data)
         ], 200);
+*/
+        //هنا لو حنشغل علي توحيد شكل  الايبي اي
+        //api schema ثالث مثال
+
+        return  ApiResponse::send(200, true, '', CourseResource::collection($data));
     }
 
     public function store(CreateCourseValidationRequest $request)
@@ -34,22 +42,37 @@ class CourseController extends Controller
 
         $counter = Courses::where('name', '=', $request->name)->count();
         if ($counter > 0) {
+
+            /*
             return response()->json([
                 'status' => false,
                 'message' => 'عفوا الاسم مسجل من قبل'
 
             ], 422);
+  */
+
+            //api schema ثالث مثال
+            //حنرجع شكل موحد علي مستوي المشروع كامل
+            return  ApiResponse::send(422, false, 'عفوا الاسم مسجل من قبل', '', 'عفوا الاسم مسجل من قبل');
         }
         $course = new Courses();
         $course->name = $request->name;
         $course->active = $request->active;
         $course->save();
+        //اول مثال
+        /*
         return response()->json([
             'status' => true,
             'message' => 'تم اضافة البيانات بنجاح',
             'data' => $course
 
         ], 201);
+
+        */
+        //api schema ثالث مثال
+        //حنرجع شكل موحد علي مستوي المشروع كامل
+
+        return  ApiResponse::send(201, true, 'تم اضافة البيانات بنجاح', $course);
     }
 
     public function show($id)
