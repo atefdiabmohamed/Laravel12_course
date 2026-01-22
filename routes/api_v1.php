@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthapiController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\StudentController;
 use App\Models\Students;
@@ -25,4 +26,7 @@ Route::prefix('v1')->group(function () {
     //سنشرح هنا  best practice laravel API
 
     Route::apiResource('students', StudentController::class);
+    //auth route
+
+    Route::post('register', [AuthapiController::class, 'register']);
 });
