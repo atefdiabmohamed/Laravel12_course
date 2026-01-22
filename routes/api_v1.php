@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthapiController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\StudentController;
 use App\Models\Students;
@@ -25,4 +26,14 @@ Route::prefix('v1')->group(function () {
     //سنشرح هنا  best practice laravel API
 
     Route::apiResource('students', StudentController::class);
+    //auth route
+
+    Route::post('register', [AuthapiController::class, 'register']);
+    Route::post('login', [AuthapiController::class, 'login']);
+    Route::post('logout', [AuthapiController::class, 'logout'])->middleware('auth:sanctum');
+
+    //مثل علي مجموعه من الروت المحمية التي يجب ان يكون المستخدم عامل تسجيل دخول ويرسل التوكن مع كل طلب
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('coursesTestWithAuthApi', [CourseController::class, 'index']);
+    });
 });

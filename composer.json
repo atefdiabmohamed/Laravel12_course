@@ -30,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/"
         }
         ,"files": [
-  "app/Helpers/General.php"
+  "app/Helpers/General.php",
+  "app/Helpers/ApiResponse.php"
 
         ]
 
