@@ -29,4 +29,11 @@ Route::prefix('v1')->group(function () {
     //auth route
 
     Route::post('register', [AuthapiController::class, 'register']);
+    Route::post('login', [AuthapiController::class, 'login']);
+    Route::post('logout', [AuthapiController::class, 'logout'])->middleware('auth:sanctum');
+
+    //مثل علي مجموعه من الروت المحمية التي يجب ان يكون المستخدم عامل تسجيل دخول ويرسل التوكن مع كل طلب
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('coursesTestWithAuthApi', [CourseController::class, 'index']);
+    });
 });
